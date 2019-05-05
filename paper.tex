@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-- Choose the template between ACM and USENIX:
+
+% ACM tempalte prelude
+% ====================
+\input{lib/acm/prelude.tex}
+
+% USENIX template prelude
+% =======================
+%\input{lib/usenix/prelude.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-- Add as many bib files as you want
+
+\addbibresource{bibs.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-- Optional things.
+
+% if you want to see the comments, press 1
+\newcommand{\showcomments}{1}
+
+% \usepackage{MinionPro}
+% \usepackage{MyriadPro}
+% \usepackage{MnSymbol}
+%
+% % macro for project name
+% \newcommand{\proj}{Rumpelstiltskin\xspace}
+% \hyphenation{Rumpelstiltskin}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-- Necessary packages to enable std_commands.
+
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{enumitem}
+% \usepackage[colorlinks=true,citecolor=Bittersweet,urlcolor=black,linkcolor=black]{hyperref}% violetred
+
+%-------------------------------------------------------------------------------
+\begin{document}
+\input{std_commands}
+%-------------------------------------------------------------------------------
+
+% title info
+\input{titleinfo-acm}
+%\input{titleinfo-usenix}
+
+\input{body}
+
+\printbibliography
+
+\end{document}
