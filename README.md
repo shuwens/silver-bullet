@@ -15,12 +15,14 @@ For ACM template, they are:
 * `lib/acm/ACM-Reference-Format.bst`
 * `acmart-preload-hook.tex`
 
-After those then is all the regular tex file in this directory.
+After those then is all the regular tex file in this directory. The rest
+of things in `lib` are just for legacy reasons and/or to compare with
+future changes in ACM and USENIX templates.
 
 
 ## FAQ
 
-* Why use `latexrun`?
+* Why use [latexrun](https://github.com/aclements/latexrun)?
 
 There are many things that are not very nice in LaTeX, such as the
 poor displaying error and warning messages, not able to keep track of
