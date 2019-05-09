@@ -34,3 +34,9 @@ get the pdf stable. `latexrun` is much easier to work with.
 Although `latexrun` improved the experience of using LaTeX in many
 ways, there are still things that it doesn't support yet--for example
 biber and biblatex etc.
+
+
+## Similar project
+
+[paper_skel](https://github.com/efficient/paper_skel) from Dave
+Anderson.
