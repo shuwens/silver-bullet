@@ -5,8 +5,18 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 
+\usepackage[capitalise]{cleveref}
 %\usepackage[backend=biber]{biblatex}
 \usepackage{csquotes}
-\usepackage[backend=biber,style=ieee,sorting=ydnt,defernumbers=true,doi=false,isbn=false,url=false]{biblatex}
+\usepackage[
+  backend=biber,
+  %refsection=subsection,
+  backref=true, % add section ref
+  style=ieee,
+  sorting=ydnt,
+  defernumbers=true,
+  doi=false,
+  isbn=false,
+  url=false]{biblatex}
 
-
+\usepackage[numbib]{tocbibind}

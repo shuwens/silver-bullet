@@ -3,11 +3,11 @@
 
 % ACM tempalte prelude
 % ====================
-\input{lib/acm/prelude.tex}
+%\input{lib/acm/prelude.tex}
 
 % USENIX template prelude
 % =======================
-%\input{lib/usenix/prelude.tex}
+\input{lib/usenix/prelude.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-- Add as many bib files as you want
@@ -43,11 +43,11 @@
 %-------------------------------------------------------------------------------
 
 % title info
-\input{titleinfo-acm}
-%\input{titleinfo-usenix}
+%\input{titleinfo-acm}
+\input{titleinfo-usenix}
 
 \input{body}
 
-\printbibliography
+\printbibliography[heading=bibnumbered]
 
 \end{document}
