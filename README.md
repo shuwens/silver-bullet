@@ -13,11 +13,20 @@ For ACM template, they are:
 * `lib/acm/prelude.tex`
 * `lib/acm/acmart.cls`
 * `lib/acm/ACM-Reference-Format.bst`
-* `acmart-preload-hook.tex`
 
 After those then is all the regular tex file in this directory. The rest
 of things in `lib` are just for legacy reasons and/or to compare with
 future changes in ACM and USENIX templates.
+
+
+## Versions of the ACM and USENIX templates
+
+The ACM tempalte comes from samples/samplex-sigconf in [LaTeX (Version
+1.63a)](https://www.acm.org/publications/proceedings-template) (last
+update August 6, 2019). Note that the ACM doesn't allow changes to the
+fonts and margins at all.
+
+The USENIX version comes from.
 
 
 ## FAQ
