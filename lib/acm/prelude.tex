@@ -1,8 +1,12 @@
-\documentclass[sigconf,natbib=false]{acmart}
+\documentclass[sigconf,natbib=false,screen=true]{acmart}
+
+% Hack to try to make acmart work with biblatex: https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
+\let\citename\relax
+
+% \usepackage[style=ACM-Reference-Format,backend=biber,sorting=none,bibencoding=utf8]{biblatex}
+\RequirePackage[style=ACM-Reference-Format,backend=biber,sorting=none,bibencoding=utf8]{biblatex}
 
 \usepackage{csquotes}
-\usepackage[style=ACM-Reference-Format,backend=biber,sorting=none,bibencoding=utf8]{biblatex}
-
 \usepackage[english]{babel}
 \usepackage{blindtext}
 

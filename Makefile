@@ -13,8 +13,9 @@ ${latexfile}.pdf:
 full :
 	$(LATEXRUN) ${latexfile}.tex
 	biber ${latexfile}.bcf --output-directory latex.out
+	$(LATEXRUN) --clean-all
 	$(LATEXRUN) ${latexfile}.tex
 
 .PHONY: clean
 clean:
-	./latexrun --clean-all
+	$(LATEXRUN) --clean-all
