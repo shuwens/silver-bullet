@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-- DISCLAIMER:
-%-- This is open sourced LaTeX utils that I adapted and changed over time, you
-%-- are free to change or use it.
+%-- This is open sourced LaTeX utils that I adapted and changed over time,
+%-- anyone are free to change or use it.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -12,26 +12,99 @@
 
 %-- NECESSARY ENVIRONMENTS OR PACKAGES (paste in to main.tex if necessay):
 
+
+% \usepackage[usenames,dvipsnames,xcdraw,svgnames,table]{xcolor}
+% \usepackage{array}
+% \usepackage{ifthen}
+% \usepackage{xspace}
+%
+% % enumerate* and itemize*
+% \usepackage[inline]{enumitem}
+%
+% % for \begin{comment}
+% \usepackage{verbatim}
+%
+% % for source-code listings
+% \usepackage[newfloat,draft=false]{minted}
+%
+% % for formulas
+% \usepackage{mathtools}
+%
+% % to split lists into multiple columns
+% \usepackage{multicol}
+%
+% % for \sfrac
+% \usepackage{xfrac}
+%
+% % Change from 1 to 0 to get rid of the comments.
+% \newcommand{\showcomments}{1}
+% \input{std_commands}
+% % macro for project name
+% \newcommand{\proj}{Rumpelstiltskin\xspace}
+% \hyphenation{Rumpelstiltskin}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%-- CHANGES:
-%-- 07/31/01 -jstrunk- Added command to set the paper margins.
-%-- 09/25/17 -jethros- Added some changes around todo.
-%-- 11/23/18 -jethros- Organized things so that it will be easier to use.
+% brewer qualitative colors
+\definecolor{brewergreen}{HTML}{1b9e77}
+\definecolor{brewerorange}{HTML}{d95f02}
+\definecolor{brewerpurple}{HTML}{7570b3}
 
+% a command to indicate current editing progress
+\newcommand{\resume}{
+  \begin{center}
+    \color{brewerorange}
+    \vspace{3pt}
+    \hrule
+    \vspace{1pt}
+    \hrule
+    \hrule
+    \vspace{10pt}
+    \textbf{This section is not yet complete.}
+    \vspace{10pt}
+    \hrule
+    \hrule
+    \vspace{1pt}
+    \hrule
+    \vspace{3pt}
+  \end{center}
+}
 
-%-- Provides fixed width font for commands and code snips.
-% ???
-%-- The bit that need to paper.tex right away:
-% =========================================================
+% an environment for invariants
+\newcounter{invn}
+\renewcommand{\theinvn}{\Roman{invn}}
+\newenvironment{invariant}
+{\vspace{.5em} \color{brewerorange} \refstepcounter{invn} \noindent \textbf{\color{brewerorange} Invariant \Roman{invn}.}}
+{\vspace{.5em}}
+
+% for handy reference
+%
+% paragraph without spacing:
+% \setparsizes{0pt}{0pt}{0pt plus 1fil}
+
+% additional hyphenation rules
+\hyphenation{da-ta-flow}
 
 %-- Macros... examples...
 \newcommand{\netex}{FlexNet\xspace}
 \hyphenation{FlexNet}
+\newcommand{\blah}{blah blah blah}
 
-%-- ????
-%\renewcommand{\sectionautorefname}{\S}
-%\renewcommand{\subsectionautorefname}{\S}
+% an environment for todos
+\newenvironment{inprogress}{\color{ACMBlue}\textbf{Sun:} \begin{tabular}{||p{.48\textwidth}}}{\end{tabular}}
+% \newenvironment{inprogress}
+%   {\vspace{.5em} \color{brewerorange} \noindent \textbf{TODO}}
+%   {\vspace{.5em}}
+
+\newcommand{\inprog}[1]{\ifthenelse{\equal{\showcomments}{1}}{{
+      \color{ACMBlue}\vspace{.5em}%
+      \noindent\begin{tabular}{@{}||p{.48\textwidth}} \textbf{In progress: } #1
+\end{tabular}}}{}}
+\newcommand{\outline}[1]{\ifthenelse{\equal{\showcomments}{1}}{{
+      \color{VioletRed}\vspace{.5em}%\hspace*{.15em}
+      \noindent\begin{tabular}{@{}||p{.48\textwidth}} \textbf{Outline: } #1
+\end{tabular}}}{}}
+
 
 %-- Code... Not sure this is useful...
 \newcommand{\code}[1]{\texttt{\textbf{#1}}}
@@ -59,8 +132,7 @@
 \MakeUppercase{\textbf{[#1]}}}
 %-- For adding inline notes to a draft preceded by your initials
 %-- E.g., \fixnote{JJW}{What the heck is a foobar?}
-\newcommand{\fixnote}[2]{\marginpar{\LARGE\ensuremath{\bullet}}
-{\textbf{[#1:} \textit{#2\,}\textbf{]}}}
+\newcommand{\fixnote}[2]{\marginpar{\LARGE\ensuremath{\bullet}}{\textbf{[#1:} \textit{#2\,}\textbf{]}}}
 
 %-- Setting margins: \setmargins{left}{right}{top}{bottom}
 \newcommand{\setmargins}[4]{
@@ -86,9 +158,12 @@
 %-- For the tabularx environment... Using L, C, R as the column type
 %-- will left, center, or right justify the text.
 % \newcolumntype{L}{X}
-% \newcolumntype{C}{>{\centering\arraybackslash}X}
-% \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
-%
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
 %-- To comment out a swatch of text, use \omitit{blah blah blah} or \eat{ xxx }
 \long\def\omitit#1{}
 \newcommand\eat[1]{}
@@ -104,59 +179,38 @@
 \newenvironment{pagelenenv}{\par\color{red}}{\par}
 
 %\newcommand{\outline}[1]{\begin{outlineenv}#1\end{outlineenv}}
-\newcommand{\paralenblah}[1]{\begin{pagelenenv}Estimated length: #1
-paragraphs\end{pagelenenv}}
-\newcommand{\pagelenblah}[1]{\begin{pagelenenv}Estimated length: #1
-pages\end{pagelenenv}}
-\newcommand{\outline}[1]{\textsf{\textbf{\leavevmode\color{Red}[Outline: #1]}}}
-\newcommand{\todoA}[1]{\textsf{\textbf{\color{VioletRed}{[#1]}}}}
-\newcommand{\todoB}[1]{\textsf{\textbf{\color{Blue}{[#1]}}}}
+\newcommand{\paralenblah}[1]{\begin{pagelenenv}Estimated length: #1 paragraphs\end{pagelenenv}}
+\newcommand{\pagelenblah}[1]{\begin{pagelenenv}Estimated length: #1 pages\end{pagelenenv}}
+
+\newcommand{\pagelen}[1]{\ifthenelse{\equal{\showcomments}{1}}{\pagelenblah{#1}}{}}
+\newcommand{\outlinetext}[1]{\ifthenelse{\equal{\showcomments}{1}}{\outline{#1}}{}}
+
+% define shortcuts for comment
+% \newcommand{\outline}[1]{\textsf{\textbf{\leavevmode\color{VioletRed}[Outline: #1]}}}
+\newcommand{\todoA}[1]{\textsf{\textbf{\color{Dandelion}{[#1]}}}}
+\newcommand{\todoB}[1]{\textsf{\textbf{\color{Purple}{[#1]}}}}
 \newcommand{\todoC}[1]{\textsf{\textbf{\color{Green}{[#1]}}}}
 \newcommand{\todoD}[1]{\textsf{\textbf{\color{Red}{[#1]}}}}
-\newcommand{\todoE}[1]{\textsf{\textbf{\color{Bittersweet}{[#1]}}}}
+\newcommand{\todoE}[1]{\textsf{\textbf{\color{RedOrange}{[#1]}}}}
 %\newcommand{\todoF}[1]{\textsf{\textbf{\color{VioletRed}{[#1]}}}}
 \newcommand{\rough}[1]{\textit{\color{Orange}{#1}}}
 
-\newcommand{\paralen}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\paralenblah{#1}}{}}
-
-\newcommand{\pagelen}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\pagelenblah{#1}}{}}
-
-\newcommand{\outlinetext}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\outline{#1}}{}}
-
-\newcommand{\evan}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoA{Evan: #1}}{}}
-\newcommand{\raja}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoB{Raja: #1}}{}}
-\newcommand{\ok}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoC{Orran: #1}}{}}
-\newcommand{\peter}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoD{Peter: #1}}{}}
-
-\newcommand{\jethro}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoE{Jethro: #1}}{}}
-
-
-\newcommand{\todo}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{
-\todoA{TODO: #1}}{}}
+\newcommand{\evan}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoA{Evan: #1}}{}}
+\newcommand{\dave}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoC{Dave: #1}}{}}
+\newcommand{\sun}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoE{Sun: #1}}{}}
+\newcommand{\todo}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoA{TODO: #1}}{}}
 
 % eg, ie, etc, et al ....
 \newcommand{\eg}{\emph{e.g.}\xspace}
-\def\etc{etc.\@\xspace}
+\newcommand\etc{etc\@ifnextchar.{}{.\@}}
+% \def\etc{etc.\@\xspace}
 \newcommand{\cf}{{cf.}\xspace}
 \newcommand{\ie}{\emph{i.e.}\xspace}
 \newcommand{\etal}{\emph{et al.}\xspace}
+
+% Little numbers in circles plus background colors
+\newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\tikzexternaldisable\protect\tikz{\protect\path [fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
+% \newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\protect\tikz{\protect\path[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
 
 %-- Little numbers in circles...  Maybe possible to define smarter macro, but
 %-- simple attempts didn't work.  There are also UTF-8 characters that can be used.
@@ -173,16 +227,19 @@ pages\end{pagelenenv}}
 \newcommand{\circnine}{\protect\raisebox{-0.5pt}{\ding{200}}\xspace}
 \newcommand{\circten}{\protect\raisebox{-0.5pt}{\ding{201}}\xspace}
 
-% Little numbers in circles plus background colors
-\newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\protect\tikz{\protect\path
-[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer
-sep=0] at (0,0) {\small{#2}};}}}
+%\renewcommand{\footnotelayout}{\setstretch{1.05}} % Reduce line spacing in footnote
+\setlength{\skip\footins}{1mm} % Reduce space between main text and footnote
+\setlength{\footnotesep}{1mm} % Reduce space between footnotes
 
-
-
+%% This part goes in preamble
+\newcommand{\dummyfig}[1]{
+  \centering
+  \fbox{
+    % \begin{minipage}[c][0.33\textheight][c]{.5\textwidth}
+    \begin{minipage}[c][.45\textheight][c]{.95\textwidth}
+      \centering{#1}
+    \end{minipage}
+  }
+}
 
 \newcommand{\squeezeup}{\vspace{-6.0mm}}
-%%% Local Variables:
-%%% mode: plain-tex
-%%% TeX-master: "hotnets15_submit_evolvability"
-%%% End:

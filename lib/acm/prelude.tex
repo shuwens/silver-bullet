@@ -1,4 +1,7 @@
-\documentclass[sigconf,natbib=false,screen=true]{acmart}
+% Enable more options for xcolors
+% https://tex.stackexchange.com/questions/496128/coloured-tables-in-acm-master-article-template
+\PassOptionsToPackage{table,xcdraw,dvipsnames,usenames,svgnames}{xcolor}
+\documentclass[sigconf,table,natbib=false,screen=true]{acmart}
 
 % \usepackage{csquotes}
 % Hack to try to make acmart work with biblatex: https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
@@ -9,6 +12,36 @@
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage{blindtext}
+
+% to be able to draw some self-contained figs
+\usepackage{tikz}
+\usepackage{amsmath}
+
+% \usepackage[pdftex]{graphicx}
+\usepackage{caption,tabularx,booktabs}
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand*\rot{\rotatebox{90}}
+
+
+% use cleveref and use those symbols
+\usepackage[nameinlink,capitalise]{cleveref}
+
+\makeatletter
+\newcommand{\crefnames}[3]{%
+  \@for\next:=#1\do{%
+    \expandafter\crefname\expandafter{\next}{#2}{#3}%
+  }%
+}
+\makeatother
+
+% to have all those symbols in cleveref
+\renewcommand{\sectionautorefname}{\S}
+\crefnames{part,chapter,section}{\S}{\S\S}
+\crefnames{paragraph}{\P}{\P\P}
+
 
 % Copyright
 \renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
