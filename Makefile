@@ -9,8 +9,8 @@ ${latexfile}.pdf:
 	$(LATEXRUN) ${latexfile}.tex
 
 # nuclear option, use it carefully
-.PHONY: full #FORCE $(BIBFILES).bib
-full :
+.PHONY: all #FORCE $(BIBFILES).bib
+all :
 	$(LATEXRUN) ${latexfile}.tex
 	biber ${latexfile}.bcf --output-directory latex.out
 	$(LATEXRUN) --clean-all
