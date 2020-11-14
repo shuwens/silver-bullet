@@ -5,9 +5,10 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 
+\usepackage[capitalise]{cleveref}
 %\usepackage[backend=biber]{biblatex}
 \usepackage{csquotes}
-\usepackage[backend=biber,style=ieee,sorting=ydnt,defernumbers=true,doi=false,isbn=false,url=false]{biblatex}
+\usepackage[numbib]{tocbibind}
 
 % \usepackage[pdftex]{graphicx}
 \usepackage{caption,tabularx,booktabs}
@@ -16,4 +17,14 @@
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 \newcommand*\rot{\rotatebox{90}}
+\usepackage[
+  backend=biber,
+  %refsection=subsection,
+  backref=true, % add section ref
+  style=ieee,
+  sorting=ydnt,
+  defernumbers=true,
+  doi=false,
+  isbn=false,
+  url=false]{biblatex}
 
