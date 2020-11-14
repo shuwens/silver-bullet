@@ -17,6 +17,7 @@
 % \usepackage{array}
 % \usepackage{ifthen}
 % \usepackage{xspace}
+% \usepackage{pifont}
 %
 % % enumerate* and itemize*
 % \usepackage[inline]{enumitem}
@@ -73,9 +74,7 @@
 % an environment for invariants
 \newcounter{invn}
 \renewcommand{\theinvn}{\Roman{invn}}
-\newenvironment{invariant}
-{\vspace{.5em} \color{brewerorange} \refstepcounter{invn} \noindent \textbf{\color{brewerorange} Invariant \Roman{invn}.}}
-{\vspace{.5em}}
+\newenvironment{invariant}{\vspace{.5em} \color{brewerorange} \refstepcounter{invn} \noindent \textbf{\color{brewerorange} Invariant \Roman{invn}.}}{\vspace{.5em}}
 
 % for handy reference
 %
@@ -96,13 +95,13 @@
 %   {\vspace{.5em} \color{brewerorange} \noindent \textbf{TODO}}
 %   {\vspace{.5em}}
 
-\newcommand{\inprog}[1]{\ifthenelse{\equal{\showcomments}{1}}{{
-      \color{ACMBlue}\vspace{.5em}%
-      \noindent\begin{tabular}{@{}||p{.48\textwidth}} \textbf{In progress: } #1
+\newcommand{\inprog}[1]{
+  \ifthenelse{\equal{\showcomments}{1}}{{\color{ACMBlue}\vspace{.5em}%
+  \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{In progress: } #1
 \end{tabular}}}{}}
-\newcommand{\outline}[1]{\ifthenelse{\equal{\showcomments}{1}}{{
-      \color{VioletRed}\vspace{.5em}%\hspace*{.15em}
-      \noindent\begin{tabular}{@{}||p{.48\textwidth}} \textbf{Outline: } #1
+\newcommand{\outline}[1]{
+  \ifthenelse{\equal{\showcomments}{1}}{{\color{VioletRed}\vspace{.5em}%\hspace*{.15em}
+  \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{Outline: } #1
 \end{tabular}}}{}}
 
 
@@ -119,7 +118,7 @@
 \newcommand{\minorsection}[1]{\textbf{#1}:}
 
 %-- Jiri caption
-\newcommand{\minicaption}[2]{\caption[#1]{\textbf{#1.} \textnormal{#2}}}
+\newcommand{\minicaption}[2]{\caption[#1]{\textbf{#1} \textnormal{#2}}}
 
 %-- Units on numbers: 4KB -> \units{4}{KB}
 \newcommand{\units}[2]{#1~#2}
@@ -167,7 +166,9 @@
 %-- To comment out a swatch of text, use \omitit{blah blah blah} or \eat{ xxx }
 \long\def\omitit#1{}
 \newcommand\eat[1]{}
-\newcommand\bs{\bigskip}
+% \newcommand\bs{\bigskip}
+\newcommand{\para}[1]{{\vspace{4pt} \bf \noindent #1 \hspace{10pt}}}
+\newcommand{\bs}[1]{{\vspace{4pt} \bf \noindent #1\xspace}}
 
 %-- Inline title; useful for sub-sub-sections in which you don't want a separate
 %-- line for the title.
@@ -187,35 +188,57 @@
 
 % define shortcuts for comment
 % \newcommand{\outline}[1]{\textsf{\textbf{\leavevmode\color{VioletRed}[Outline: #1]}}}
-\newcommand{\todoA}[1]{\textsf{\textbf{\color{Dandelion}{[#1]}}}}
+\newcommand{\todoA}[1]{\textsf{\textbf{\color{BurntOrange}{[#1]}}}}
 \newcommand{\todoB}[1]{\textsf{\textbf{\color{Purple}{[#1]}}}}
 \newcommand{\todoC}[1]{\textsf{\textbf{\color{Green}{[#1]}}}}
 \newcommand{\todoD}[1]{\textsf{\textbf{\color{Red}{[#1]}}}}
 \newcommand{\todoE}[1]{\textsf{\textbf{\color{RedOrange}{[#1]}}}}
-%\newcommand{\todoF}[1]{\textsf{\textbf{\color{VioletRed}{[#1]}}}}
+\newcommand{\todoF}[1]{\textsf{\textbf{\color{YellowOrange}{[#1]}}}}
 \newcommand{\rough}[1]{\textit{\color{Orange}{#1}}}
 
-\newcommand{\evan}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoA{Evan: #1}}{}}
 \newcommand{\dave}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoC{Dave: #1}}{}}
 \newcommand{\sun}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoE{Sun: #1}}{}}
 \newcommand{\todo}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoA{TODO: #1}}{}}
+\newcommand{\ts}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoF{Topic Sentence: #1}}{}}
 
 % eg, ie, etc, et al ....
-\newcommand{\eg}{\emph{e.g.}\xspace}
-\newcommand\etc{etc\@ifnextchar.{}{.\@}}
+% \newcommand{\eg}{\emph{e.g.}\xspace}
 % \def\etc{etc.\@\xspace}
+% \newcommand{\ie}{\emph{i.e.}\xspace}
+% \newcommand{\etal}{\emph{et al.}\xspace}
 \newcommand{\cf}{{cf.}\xspace}
-\newcommand{\ie}{\emph{i.e.}\xspace}
-\newcommand{\etal}{\emph{et al.}\xspace}
+\newcommand\etc{etc\@ifnextchar.{}{.\@}}
+
+% \newcommand{\etc}{etc.}
+\newcommand{\eg}{e.g.,\ }
+\newcommand{\etal}{et al.\xspace}
+\newcommand{\ie}{i.e.,\ }
+\newcommand{\re}{r.e.\ }
+\newcommand{\aka}{a.k.a.\ }
+
+\newenvironment{packed_itemize}{
+\begin{itemize}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \setlength{\topsep}{2pt}
+}{\end{itemize}}
+
+\newenvironment{packed_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \setlength{\topsep}{2pt}
+}{\end{enumerate}}
 
 % Little numbers in circles plus background colors
-\newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\tikzexternaldisable\protect\tikz{\protect\path [fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
-% \newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\protect\tikz{\protect\path[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
+% \newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\tikzexternaldisable\protect\tikz{\protect\path[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
+\newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\protect\tikz{\protect\path[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
 
 %-- Little numbers in circles...  Maybe possible to define smarter macro, but
 %-- simple attempts didn't work.  There are also UTF-8 characters that can be used.
 %-- Might need this to get it working:
-%\usepackage{pifont}
 \newcommand{\circone}{\protect\raisebox{-0.5pt}{\ding{192}}\xspace}
 \newcommand{\circtwo}{\protect\raisebox{-0.5pt}{\ding{193}}\xspace}
 \newcommand{\circthree}{\protect\raisebox{-0.5pt}{\ding{194}}\xspace}
@@ -242,4 +265,43 @@
   }
 }
 
+% \renewcommand{\footnotesize}{\scriptsize}
 \newcommand{\squeezeup}{\vspace{-6.0mm}}
+
+% tikz configuration
+\usetikzlibrary{shapes.geometric,shapes.arrows,decorations.pathmorphing}
+\usetikzlibrary{matrix,chains,scopes,positioning,arrows,fit}
+\usetikzlibrary{arrows.meta, chains, positioning, shapes}
+% \renewcommand{\rmdefault}{bch} % change default font
+\tikzset{
+  % STYLES
+  node distance =0.5cm, auto,%font=\footnotesize,
+  every node/.style={node distance=1cm},
+  % The comment style is used to describe the characteristics of each force
+  comment/.style={rectangle, inner sep=2pt, text width=2.5cm, node distance=0.25cm,}, %font=\scriptsize\sffamily},
+  % The force style is used to draw the forces' name
+  force/.style={rectangle, draw, fill=black!10, inner sep=2pt, text width=2.5cm, text badly centered, minimum height=1cm,}, %font=\bfseries\footnotesize\sffamily},
+  %Define standard arrow tip
+  >=stealth',
+  %Define style for boxes
+  punkt/.style={
+    rectangle,
+    rounded corners,
+    draw=black, very thick,
+    text width=3.5em,
+    minimum height=2em,
+  text centered},
+  % Define arrow style
+  pil/.style={
+    ->,
+    thick,
+    shorten <=2pt,
+  shorten >=2pt,},
+  % colored ones
+  gray/.style = {fill=black!10},
+  blue/.style = {fill=blue!30},
+  red/.style = {fill=red!30},
+  green/.style = {fill=green!30},
+  orange/.style = {fill=orange!15},
+  % process/.style = {base, minimum width=2.5cm, fill=orange!15,font=\ttfamily},
+}
