@@ -1,19 +1,28 @@
 #!/bin/bash
 
-LATEXRUN=./latexrun
+LATEXRUN ?= ./latexrun
+FLAGS=--bibtex-cmd=biber
+
 latexfile=paper
 bibfile=bibs
+FIGDIR=figures
+BIBFILES=main.bib
+
+
+all: ${latexfile}.pdf
+
 
 .PHONY: FORCE
-${latexfile}.pdf: ${latexfile}.tex ${bibfile}.bib
-	$(LATEXRUN) --latex-args="-shell-escape" --bibtex-cmd="biber" -Wall $< -o $@
+${latexfile}.pdf: FORCE ${latexfile}.tex
+		$(LATEXRUN) ${FLAGS} ${latexfile}.tex -o $@
+
 
 .PHONY: clean
 clean:
-	$(LATEXRUN) --clean-all
+		$(LATEXRUN) --clean-all
+
 
 .PHONY: cleaner
 cleaner:
-	rm ${latexfile}.pdf
-	rm -rf latex.out
-
+		$(LATEXRUN) --clean-all
+		rm -rf latex.out
