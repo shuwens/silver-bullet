@@ -5,13 +5,14 @@
 \documentclass[10pt,sigconf,letterpaper,anonymous,table,natbib=false,screen=true]{acmart}
 % \documentclass[sigconf,table,natbib=false,screen=true]{acmart}
 
+% https://github.com/scyue/latex-sigcomm18/blob/master/paper.tex#L17
+\settopmatter{printacmref=true, printccs=true, printfolios=true}
+
 % Hack to try to make acmart work with biblatex:
 % https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
 \let\citename\relax
 \RequirePackage[style=ACM-Reference-Format,backend=biber,natbib=true,sorting=ynt,sortcites=true,]{biblatex}
 % \RequirePackage[style=ACM-Reference-Format,backend=biber,sorting=none]{biblatex}
-
-% \settopmatter{printacmref=false, printccs=true, printfolios=true}
 
 % \RequirePackage[
 %   backend=biber,
