@@ -11,30 +11,8 @@
 % Hack to try to make acmart work with biblatex:
 % https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
 \let\citename\relax
-\RequirePackage[style=ACM-Reference-Format,backend=biber,natbib=true,sorting=ynt,sortcites=true,]{biblatex}
-% \RequirePackage[style=ACM-Reference-Format,backend=biber,sorting=none]{biblatex}
-
-% \RequirePackage[
-%   backend=biber,
-%   natbib=true,
-%   citestyle=numeric-comp,
-%   defernumbers=true,
-%   % sorting=nyt, % https://tex.stackexchange.com/questions/51434/biblatex-citation-order
-%   % sorting=ynt,
-%   sorting=none,
-%   sortcites=true,
-%   abbreviate=true,
-%   dateabbrev=true,
-%   isbn=false,
-%   doi=false,
-%   urldate=comp,
-%   url=false,
-%   maxbibnames=2,
-%   maxcitenames=3,
-%   % mincitenames=11,
-%   backref=false,
-%   style=ACM-Reference-Format,
-%   language=american]{biblatex}
+% \RequirePackage[style=ACM-Reference-Format,backend=biber,natbib=true,sorting=ynt,sortcites=true,]{biblatex}
+\RequirePackage[abbreviate=true, dateabbrev=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=9, backref=false, backend=biber, style=ACM-Reference-Format, language=american]{biblatex}
 
 % Comment this out if don't have Minion Pro and Myriad Pro
 % \usepackage{MinionPro}
