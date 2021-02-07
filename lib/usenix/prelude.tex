@@ -1,29 +1,132 @@
 \documentclass[letterpaper,twocolumn,10pt]{article}
+
 \usepackage{lib/usenix/usenix2019_v3}
 
 % to be able to draw some self-contained figs
 \usepackage{tikz}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
 \usepackage{amsmath}
 
-\usepackage[capitalise]{cleveref}
 \usepackage{csquotes}
-\usepackage[numbib]{tocbibind}
-
+% \usepackage[latin1]{inputenc}
+\usepackage{dcolumn}
 % \usepackage[pdftex]{graphicx}
 \usepackage{caption,tabularx,booktabs}
+
+\usepackage[export]{adjustbox}
 
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 \newcommand*\rot{\rotatebox{90}}
-\usepackage[
-  backend=biber,
-  %refsection=subsection,
-  backref=true, % add section ref
-  style=ieee,
-  sorting=ydnt,
-  defernumbers=true,
-  doi=false,
-  isbn=false,
-  url=false]{biblatex}
 
+% Comment this out if don't have Minion Pro and Myriad Pro
+\usepackage{MinionPro}
+\usepackage{MyriadPro}
+\usepackage{MnSymbol}
+
+% control title space
+\frenchspacing % Single-spaced sentence spacing
+\usepackage[compact]{titlesec}
+\titlespacing*{\section}{0pt}{2ex}{1ex}
+% \titlespacing*{\section}{0pt}{1.1\baselineskip}{\baselineskip}
+\titlespacing*{\subsection}{0pt}{1.4ex}{0.9ex}
+\titlespacing*{\subsubsection}{0pt}{1.2ex}{0.8ex}
+
+% \titlespacing*{\section}{0pt}{2mm}{1mm}  % Left indent, above, below
+% \titlespacing*{\section}{0pt}{2mm}{1mm}  % Left indent, above, below
+% \titlespacing*{\subsection}{0pt}{2mm}{1mm}  % Left indent, above, below
+
+% The below two commands are used for adjusting caption text size and spacing
+\usepackage{setspace}  % adds \setstretch command for caption
+\captionsetup{font={small,stretch=0.6},skip=10pt, belowskip=-8pt} % Adjusting skip will change caption spacing
+\captionsetup{font={stretch=0.9},skip=6pt, belowskip=-2pt}
+
+
+\usepackage[numbib]{tocbibind}
+
+\definecolor[named]{ACMBlue}{cmyk}{1,0.1,0,0.1}
+\definecolor[named]{ACMYellow}{cmyk}{0,0.16,1,0}
+\definecolor[named]{ACMOrange}{cmyk}{0,0.42,1,0.01}
+\definecolor[named]{ACMRed}{cmyk}{0,0.90,0.86,0}
+\definecolor[named]{ACMLightBlue}{cmyk}{0.49,0.01,0,0}
+\definecolor[named]{ACMGreen}{cmyk}{0.20,0,1,0.19}
+\definecolor[named]{ACMPurple}{cmyk}{0.55,1,0,0.15}
+\definecolor[named]{ACMDarkBlue}{cmyk}{1,0.58,0,0.21}
+% Color the reference text to figures to make it easy to pick out in the text
+\definecolor{figurecolor}{RGB}{22,90,220}
+\definecolor{citecolor}{RGB}{198,81,19}
+\captionsetup[figure]{labelfont={color=figurecolor}}
+\captionsetup[table]{labelfont={color=figurecolor}}
+
+
+%%%% Includes for URLs and links between section in doc %%%%%
+
+% Helps add sane linebreaks to long urls
+\usepackage{url}
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+
+\DeclareCaptionLabelSeparator{forcespace}{~} % Fixing a subcaption spacing bug
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,
+  pdftitle={Understanding Performance Implications of Third-Party Network Functions},
+  pdfauthor={Anonymous authors}
+}
+
+% \usepackage[hyperref]{backref}
+% % %\renewcommand*{\backref}[1]{% for backref < 1.33 necessary
+% \renewcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
+% \renewcommand\thefootnote{{\textcolor{citecolor}{\arabic{footnote}}}}
+\newcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
+
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref} % Does the automatic referencing malarky (eg, "figure")
+\makeatletter
+\newcommand{\crefnames}[3]{%
+  \@for\next:=#1\do{%
+    \expandafter\crefname\expandafter{\next}{#2}{#3}%
+  }%
+}
+\makeatother
+\crefnames{part,chapter,section}{\S}{\S\S}
+
+\usepackage[abbreviate=false,backref=true,hyperref=true,giveninits=true,dateabbrev=true,isbn=false,doi=false,urldate=comp,url=false,maxbibnames=9,backend=biber,sorting=ynt,sortcites=true,language=american]{biblatex}
+% \usepackage[backend=biber, bibstyle=publist, plauthorhandling=highlight, nameorder=given-family, maxbibnames=99]{biblatex}
+% http://codydunne.blogspot.com/2012/01/suppressing-bibtex-fields-for-specific.html
+\AtEveryBibitem{% Clean up the bibtex rather than editing it
+ \clearlist{address}
+ \clearfield{date}
+ \clearfield{eprint}
+ \clearfield{isbn}
+ \clearfield{issn}
+ \clearlist{location}
+ \clearfield{month}
+ \clearfield{day}
+ \clearfield{series}
+ \clearfield{pages}
+ \ifentrytype{book}{}{% Remove publisher and editor except for books
+  \clearlist{publisher}
+  \clearname{editor}
+ }
+}
+% Format for citations
+\DeclareFieldFormat*{eventtitle}{\textit{#1}}
+\DeclareFieldFormat[book]{eventtitle}{{#1}}
+% \DeclareFieldFormat{eventtitle}{\normalfont{#1\isdot}}
+% \DeclareFieldFormat{eventsubtitle}{\normalfont{#1\isdot}}
+% \DeclareFieldFormat{eventtitleaddon}{\normalfont{#1\isdot}}
+
+% remove colon for the intitlepunct
+\renewcommand*{\intitlepunct}{\space}
+% remove In: from aricles and inproceedings entries
+% https://tex.stackexchange.com/questions/10682/suppress-in-biblatex
+% \renewbibmacro{in:}{%
+%   \ifboolexpr{%
+%      test {\ifentrytype{article}}%
+%      or
+%      test {\ifentrytype{inproceedings}}%
+%   }{}{\printtext{\bibstring{in}\intitlepunct}}%
+% }

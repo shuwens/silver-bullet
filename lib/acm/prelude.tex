@@ -3,37 +3,44 @@
 \PassOptionsToPackage{table,xcdraw,dvipsnames,usenames,svgnames}{xcolor}
 
 \documentclass[10pt,sigconf,letterpaper,anonymous,table,natbib=false,screen=true]{acmart}
-% \documentclass[sigconf,table,natbib=false,screen=true]{acmart}
-
-% https://github.com/scyue/latex-sigcomm18/blob/master/paper.tex#L17
-\settopmatter{printacmref=true, printccs=true, printfolios=true}
 
 % Hack to try to make acmart work with biblatex:
 % https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
 \let\citename\relax
 % \RequirePackage[style=ACM-Reference-Format,backend=biber,natbib=true,sorting=ynt,sortcites=true,]{biblatex}
-\RequirePackage[abbreviate=true, dateabbrev=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=9, backref=false, backend=biber, style=ACM-Reference-Format, language=american]{biblatex}
+\RequirePackage[abbreviate=false, dateabbrev=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=9, backref=false, backend=biber, sorting=ynt,sortcites=true,style=ACM-Reference-Format, language=american]{biblatex}
+% http://codydunne.blogspot.com/2012/01/suppressing-bibtex-fields-for-specific.html
+\AtEveryBibitem{% Clean up the bibtex rather than editing it
+ \clearlist{address}
+ \clearfield{date}
+ \clearfield{eprint}
+ \clearfield{isbn}
+ \clearfield{issn}
+ \clearlist{location}
+ \clearfield{month}
+ \clearfield{pages}
+ \ifentrytype{book}{}{% Remove publisher and editor except for books
+  \clearlist{publisher}
+  \clearname{editor}
+ }
+}
+\renewcommand*{\bibfont}{\footnotesize}
+% Format for citations
+\DeclareFieldFormat*{eventtitle}{\textit{#1}}
+\DeclareFieldFormat[book]{eventtitle}{{#1}}  
+% \DeclareFieldFormat{eventtitle}{\normalfont{#1\isdot}}
+% \DeclareFieldFormat{eventsubtitle}{\normalfont{#1\isdot}}
+% \DeclareFieldFormat{eventtitleaddon}{\normalfont{#1\isdot}}
 
 % Comment this out if don't have Minion Pro and Myriad Pro
 % \usepackage{MinionPro}
 % \usepackage{MyriadPro}
 % \usepackage{MnSymbol}
 
-\usepackage{csquotes}
-\usepackage[english]{babel}
-\usepackage{blindtext}
+% https://github.com/scyue/latex-sigcomm18/blob/master/paper.tex#L17
+\settopmatter{printacmref=true, printccs=true, printfolios=true}
 
-% to be able to draw some self-contained figs
-\usepackage{tikz}
 \usepackage{amsmath}
-
-% \usepackage[pdftex]{graphicx}
-\usepackage{caption,tabularx,booktabs}
-
-\usepackage{pifont}% http://ctan.org/pkg/pifont
-\newcommand{\cmark}{\ding{51}}%
-\newcommand{\xmark}{\ding{55}}%
-\newcommand*\rot{\rotatebox{90}}
 
 % use cleveref and use those symbols
 \usepackage[nameinlink,capitalise]{cleveref}
@@ -46,11 +53,39 @@
 }
 \makeatother
 
+% control title space
+% \usepackage{titlesec}
+% \titlespacing*{\section}{0pt}{1.1\baselineskip}{\baselineskip}
+
+
 % to have all those symbols in cleveref
 \renewcommand{\sectionautorefname}{\S}
-\crefnames{part,chapter,section}{\S}{\S\S}
-\crefnames{paragraph}{\P}{\P\P}
+\crefnames{part,chapter,section}{\S}{\S}
+\crefnames{paragraph}{\P}{\P}
 
+%
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
+% \usepackage[pdftex]{graphicx}
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\na}{N.A.}
+\newcommand*\rot{\rotatebox{90}}
+
+% to be able to draw some self-contained figs
+\usepackage{tikz}
+
+\usepackage{tabularx,booktabs}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{graphics}
+
+% ACM stuff
+\input{lib/acm/ccs.xml}
 
 % Copyright
 \renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
@@ -63,6 +98,8 @@
 %\setcopyright{cagov}
 %\setcopyright{cagovmixed}
 
+% \settopmatter{printacmref=false, printccs=true, printfolios=true}
+
 % DOI
 \acmDOI{}
 
@@ -70,12 +107,13 @@
 \acmISBN{}
 
 %Conference
-%\acmConference[Submitted for review to SIGCOMM]{}
-%\acmYear{2018}
-%\copyrightyear{}
+\acmConference[Submitted for review to SIGCOMM]{}
+\acmYear{2021}
+\copyrightyear{}
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{X.et al.}
+% \renewcommand{\shortauthors}{X.et al.}
+\renewcommand{\shortauthors}{Anonymous authors}
 
 %% {} with no args suppresses printing of the price
 \acmPrice{}
