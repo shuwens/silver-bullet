@@ -6,13 +6,15 @@
 \usepackage{tikz}
 \usepackage{pgfplotstable}
 \usepackage{pgfplots}
-\usepackage{amsmath}
 
 \usepackage{csquotes}
 % \usepackage[latin1]{inputenc}
 \usepackage{dcolumn}
 % \usepackage[pdftex]{graphicx}
 \usepackage{caption,tabularx,booktabs}
+\usepackage{mathtools, nccmath}
+\usepackage{xpatch}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
 
 \usepackage[export]{adjustbox}
 
@@ -40,7 +42,7 @@
 
 % The below two commands are used for adjusting caption text size and spacing
 \usepackage{setspace}  % adds \setstretch command for caption
-\captionsetup{font={small,stretch=0.6},skip=10pt, belowskip=-8pt} % Adjusting skip will change caption spacing
+% \captionsetup{font={small,stretch=0.6},skip=10pt, belowskip=-8pt} % Adjusting skip will change caption spacing
 \captionsetup{font={stretch=0.9},skip=6pt, belowskip=-2pt}
 
 
@@ -71,30 +73,37 @@
 
 \DeclareCaptionLabelSeparator{forcespace}{~} % Fixing a subcaption spacing bug
 
+
+%%%% Bib stuff, load biblatex before hyperref Includes for URLs and links between section in doc %%%%%
+
+\usepackage[abbreviate=false,backref=true,hyperref=true,giveninits=true,dateabbrev=true,isbn=false,doi=false,urldate=comp,url=false,maxbibnames=9,backend=biber,sorting=ynt,sortcites=true,language=american]{biblatex}
+% \usepackage[backend=biber, bibstyle=publist, plauthorhandling=highlight, nameorder=given-family, maxbibnames=99]{biblatex}
+
 \usepackage{hyperref}
-\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,
+\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,backref=section,
   pdftitle={Understanding Performance Implications of Third-Party Network Functions},
   pdfauthor={Anonymous authors}
 }
 
 % \usepackage[hyperref]{backref}
-% % %\renewcommand*{\backref}[1]{% for backref < 1.33 necessary
+% \renewcommand*{\backref}[1]{% for backref < 1.33 necessary
 % \renewcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
 % \renewcommand\thefootnote{{\textcolor{citecolor}{\arabic{footnote}}}}
-\newcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
+% \newcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
+
 
 \usepackage[nameinlink,noabbrev,capitalise]{cleveref} % Does the automatic referencing malarky (eg, "figure")
-\makeatletter
-\newcommand{\crefnames}[3]{%
-  \@for\next:=#1\do{%
-    \expandafter\crefname\expandafter{\next}{#2}{#3}%
-  }%
-}
-\makeatother
-\crefnames{part,chapter,section}{\S}{\S\S}
+\crefformat{section}{#2\S#1#3}
+\crefmultiformat{section}{#2\S\S#1#3}{~and~#2#1#3}{, #2#1#3}{, and~#2#1#3}
 
-\usepackage[abbreviate=false,backref=true,hyperref=true,giveninits=true,dateabbrev=true,isbn=false,doi=false,urldate=comp,url=false,maxbibnames=9,backend=biber,sorting=ynt,sortcites=true,language=american]{biblatex}
-% \usepackage[backend=biber, bibstyle=publist, plauthorhandling=highlight, nameorder=given-family, maxbibnames=99]{biblatex}
+% automatically use the \S symbol for section autoref and eat the space
+\def\Snospace~{\S{}}
+\renewcommand*\sectionautorefname{\Snospace}
+\renewcommand\figurename{Fig.}
+\renewcommand*\figureautorefname{Fig.}
+\renewcommand*\subsectionautorefname{\Snospace}
+\renewcommand*\subsubsectionautorefname{\Snospace}
+
 % http://codydunne.blogspot.com/2012/01/suppressing-bibtex-fields-for-specific.html
 \AtEveryBibitem{% Clean up the bibtex rather than editing it
  \clearlist{address}
@@ -105,7 +114,8 @@
  \clearlist{location}
  \clearfield{month}
  \clearfield{day}
- \clearfield{series}
+ % \clearfield{series}
+ \clearfield{year}
  \clearfield{pages}
  \ifentrytype{book}{}{% Remove publisher and editor except for books
   \clearlist{publisher}
@@ -113,11 +123,12 @@
  }
 }
 % Format for citations
-\DeclareFieldFormat*{eventtitle}{\textit{#1}}
-\DeclareFieldFormat[book]{eventtitle}{{#1}}
 % \DeclareFieldFormat{eventtitle}{\normalfont{#1\isdot}}
 % \DeclareFieldFormat{eventsubtitle}{\normalfont{#1\isdot}}
 % \DeclareFieldFormat{eventtitleaddon}{\normalfont{#1\isdot}}
+\DeclareFieldFormat*{eventtitle}{\textit{#1}}
+\DeclareFieldFormat[book]{eventtitle}{{#1}}
+\DeclareFieldFormat*{series}{(\textit{#1})}
 
 % remove colon for the intitlepunct
 \renewcommand*{\intitlepunct}{\space}
