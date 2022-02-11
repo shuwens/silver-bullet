@@ -53,10 +53,17 @@ clickable in the PDF because of the packages we've included.
 \label{sec:figs}
 %-------------------------------------------------------------------------------
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/mouse.pdf} 
+  \minicaption{Text.}{Text again.}\label{fig:vectors}
+\end{figure}
+
+
 
 Here's a typical reference to a floating figure:
-Figure~\ref{fig:vectors}. Floats should usually be placed where latex
-wants then. Figure\ref{fig:vectors} is centered, and has a caption
+\cref{fig:vectors}. Floats should usually be placed where latex
+wants then. \cref{fig:vectors} is centered, and has a caption
 that instructs you to make sure that the size of the text within the
 figures that you use is as big as (or bigger than) the size of the
 text in the caption of the figures. Please do. Really.

@@ -2,6 +2,7 @@
 % https://tex.stackexchange.com/questions/496128/coloured-tables-in-acm-master-article-template
 \PassOptionsToPackage{table,xcdraw,dvipsnames,usenames,svgnames}{xcolor}
 
+% \documentclass[10pt,sigconf,letterpaper,anonymous,nonacm,table,natbib=false,screen=true]{acmart}
 \documentclass[10pt,sigconf,letterpaper,anonymous,table,natbib=false,screen=true]{acmart}
 
 % Hack to try to make acmart work with biblatex:
@@ -41,10 +42,25 @@
 \settopmatter{printacmref=true, printccs=true, printfolios=true}
 
 \usepackage{amsmath}
+\usepackage[nameinlink,capitalise]{cleveref}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{pifont}
+\usepackage{tikz}
+\usepackage{tabularx,booktabs}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{graphics}
+\usepackage{mathtools, nccmath}
+% \usepackage[pdftex]{graphicx}
+
+% control title space
+% \usepackage{titlesec}
+% \titlespacing*{\section}{0pt}{1.1\baselineskip}{\baselineskip}
 
 % use cleveref and use those symbols
-\usepackage[nameinlink,capitalise]{cleveref}
-
 \makeatletter
 \newcommand{\crefnames}[3]{%
   \@for\next:=#1\do{%
@@ -53,36 +69,27 @@
 }
 \makeatother
 
-% control title space
-% \usepackage{titlesec}
-% \titlespacing*{\section}{0pt}{1.1\baselineskip}{\baselineskip}
-
-
 % to have all those symbols in cleveref
 \renewcommand{\sectionautorefname}{\S}
 \crefnames{part,chapter,section}{\S}{\S}
 \crefnames{paragraph}{\P}{\P}
 
-%
-\usepackage{csquotes}
-\usepackage[english]{babel}
-\usepackage{blindtext}
+% Color the reference text to figures to make it easy to pick out in the text
+\definecolor{figurecolor}{RGB}{22,90,220}
+\definecolor{citecolor}{RGB}{198,81,19}
+\captionsetup[figure]{labelfont={color=figurecolor}}
+\captionsetup[table]{labelfont={color=figurecolor}}
 
-% \usepackage[pdftex]{graphicx}
+% Hyperlinks setup
+\AtBeginDocument{%
+\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,backref=section,
+}
+}
 
-\usepackage{pifont}% http://ctan.org/pkg/pifont
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 \newcommand{\na}{N.A.}
 \newcommand*\rot{\rotatebox{90}}
-
-% to be able to draw some self-contained figs
-\usepackage{tikz}
-
-\usepackage{tabularx,booktabs}
-\usepackage[export]{adjustbox}
-\usepackage{caption}
-\usepackage{graphics}
 
 % ACM stuff
 \input{lib/acm/ccs.xml}
@@ -108,7 +115,7 @@
 
 %Conference
 \acmConference[Submitted for review to SIGCOMM]{}
-\acmYear{2021}
+\acmYear{2022}
 \copyrightyear{}
 
 % The default list of authors is too long for headers}

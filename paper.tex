@@ -20,22 +20,63 @@
 % if you want to see the comments, press 1
 \newcommand{\showcomments}{1}
 
-% \usepackage{MinionPro}
-% \usepackage{MyriadPro}
-% \usepackage{MnSymbol}
-% \usepackage[subtle]{savetrees}
+% last minute change to save space
+\usepackage[subtle]{savetrees}
+
+\microtypecontext{spacing=nonfrench}
 
 % % macro for project name
-% \newcommand{\proj}{Rumpelstiltskin\xspace}
+% \newcommand{\proj}{Project X\xspace}
 % \hyphenation{Rumpelstiltskin}
+
+\newcommand{\sysname}{MyProject\xspace}
+\newcommand{\postfigspace}{\vspace{-1.5em}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-- Necessary packages to enable std_commands.
+\usepackage{
+  array,
+  balance,
+  makecell,
+  xspace,
+  subcaption,
+  pifont,
+  float,
+  ifthen,
+  listings,
+  xspace
+}
+\usepackage[backend=biber]{biblatex}
 
-\usepackage{array}
-\usepackage{ifthen}
-\usepackage{xspace}
-\usepackage{enumitem}
+% enumerate* and itemize*
+\usepackage[inline]{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+% for \begin{comment}
+\usepackage{verbatim}
+
+% for source-code listings
+% \usepackage[newfloat,draft=false]{minted}
+
+% for formulas
+\usepackage{mathtools}
+
+% to split lists into multiple columns
+\usepackage{multicol}
+\usepackage{multirow}
+
+% for \sfrac
+\usepackage{xfrac}
+\usepackage{appendix}
+
+%\usepackage[compact]{titlesec}
+
+% \setlength{\extrarowheight}{4pt}
+\newcommand{\normal}[1]{\multicolumn{1}{l}{#1}}
+
+\newcommand{\head}[1]{\textbf{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-------------------------------------------------------------------------------
 \begin{document}
@@ -48,6 +89,8 @@
 
 % TO CHANGE: probably you want to change this into separate sections as tex file
 \input{body}
+
+\paragraph{\textbf{Ethics: This work does not raise any ethical issues.}}
 
 % \printbibliography[heading=bibnumbered]
 \printbibliography

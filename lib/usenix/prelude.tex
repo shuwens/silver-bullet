@@ -16,6 +16,11 @@
 \usepackage{xpatch}
 \usepackage{amsmath}% http://ctan.org/pkg/amsmath
 
+% footnote
+\usepackage{footnote}
+\usepackage{footmisc}
+% \renewcommand{\thefootnote}{\alph{footnote}}
+
 \usepackage[export]{adjustbox}
 
 \usepackage{pifont}% http://ctan.org/pkg/pifont
@@ -24,9 +29,9 @@
 \newcommand*\rot{\rotatebox{90}}
 
 % Comment this out if don't have Minion Pro and Myriad Pro
-\usepackage{MinionPro}
-\usepackage{MyriadPro}
-\usepackage{MnSymbol}
+% \usepackage{MinionPro}
+% \usepackage{MyriadPro}
+% \usepackage{MnSymbol}
 
 % control title space
 \frenchspacing % Single-spaced sentence spacing
@@ -76,21 +81,17 @@
 
 %%%% Bib stuff, load biblatex before hyperref Includes for URLs and links between section in doc %%%%%
 
-\usepackage[abbreviate=false,backref=true,hyperref=true,giveninits=true,dateabbrev=true,isbn=false,doi=false,urldate=comp,url=false,maxbibnames=9,backend=biber,sorting=ynt,sortcites=true,language=american]{biblatex}
-% \usepackage[backend=biber, bibstyle=publist, plauthorhandling=highlight, nameorder=given-family, maxbibnames=99]{biblatex}
+\usepackage[abbreviate=false,hyperref=true,backref=true,backrefstyle=two,refsection=section,giveninits=true,dateabbrev=true,isbn=false,doi=false,urldate=comp,url=false,maxbibnames=9,backend=biber,sorting=ynt,sortcites=true,language=american]{biblatex}
 
 \usepackage{hyperref}
-\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,backref=section,
-  pdftitle={Understanding Performance Implications of Third-Party Network Functions},
-  pdfauthor={Anonymous authors}
+\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,
 }
 
+% backref section is broken with biblatex
 % \usepackage[hyperref]{backref}
+% \renewcommand\thefootnote{{\textcolor{citecolor}{\arabic{footnote}}}}
 % \renewcommand*{\backref}[1]{% for backref < 1.33 necessary
 % \renewcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
-% \renewcommand\thefootnote{{\textcolor{citecolor}{\arabic{footnote}}}}
-% \newcommand*{\backrefalt}[4]{\ifcase #1 \or (\S #2). \else (\S #2). \fi}
-
 
 \usepackage[nameinlink,noabbrev,capitalise]{cleveref} % Does the automatic referencing malarky (eg, "figure")
 \crefformat{section}{#2\S#1#3}
@@ -106,21 +107,21 @@
 
 % http://codydunne.blogspot.com/2012/01/suppressing-bibtex-fields-for-specific.html
 \AtEveryBibitem{% Clean up the bibtex rather than editing it
- \clearlist{address}
- \clearfield{date}
- \clearfield{eprint}
- \clearfield{isbn}
- \clearfield{issn}
- \clearlist{location}
- \clearfield{month}
- \clearfield{day}
- % \clearfield{series}
- \clearfield{year}
- \clearfield{pages}
- \ifentrytype{book}{}{% Remove publisher and editor except for books
+  \clearlist{address}
+  \clearfield{date}
+  \clearfield{eprint}
+  \clearfield{isbn}
+  \clearfield{issn}
+  \clearlist{location}
+  \clearfield{month}
+  \clearfield{day}
+  % \clearfield{series}
+  \clearfield{year}
+  \clearfield{pages}
+  \ifentrytype{book}{}{% Remove publisher and editor except for books
   \clearlist{publisher}
   \clearname{editor}
- }
+  }
 }
 % Format for citations
 % \DeclareFieldFormat{eventtitle}{\normalfont{#1\isdot}}

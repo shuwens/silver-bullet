@@ -18,6 +18,8 @@
 % \usepackage{ifthen}
 % \usepackage{xspace}
 % \usepackage{pifont}
+% \usepackage{footnote}
+% \usepackage{footmisc}
 %
 % % enumerate* and itemize*
 % \usepackage[inline]{enumitem}
@@ -29,14 +31,15 @@
 % \usepackage[newfloat,draft=false]{minted}
 %
 % % for formulas
-% \usepackage{mathtools}
-%
+% \usepackage{mathtools, nccmath}
+% \usepackage{xpatch}
+
 % % to split lists into multiple columns
 % \usepackage{multicol}
 %
 % % for \sfrac
 % \usepackage{xfrac}
-%
+
 % % Change from 1 to 0 to get rid of the comments.
 % \newcommand{\showcomments}{1}
 % \input{std_commands}
@@ -46,10 +49,21 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Defined values
+
 % brewer qualitative colors
 \definecolor{brewergreen}{HTML}{1b9e77}
 \definecolor{brewerorange}{HTML}{d95f02}
 \definecolor{brewerpurple}{HTML}{7570b3}
+
+% special foot note stuff
+\newcommand{\astfootnote}[1]{
+\let\oldthefootnote=\thefootnote
+\setcounter{footnote}{0}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnote{#1}
+\let\thefootnote=\oldthefootnote
+}
 
 % a command to indicate current editing progress
 \newcommand{\resume}{
@@ -71,6 +85,20 @@
   \end{center}
 }
 
+% reduce space before and after formula
+% \xpatchcmd{\NCC@ignorepar}{%
+% \abovedisplayskip\abovedisplayshortskip}
+% {%
+% \abovedisplayskip\abovedisplayshortskip%
+% \belowdisplayskip\belowdisplayshortskip}
+% {}{}
+\setlength{\abovedisplayskip}{3pt} \setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayskip}{5pt} \setlength{\belowdisplayshortskip}{5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Common setup
+
 % an environment for invariants
 \newcounter{invn}
 \renewcommand{\theinvn}{\Roman{invn}}
@@ -91,17 +119,18 @@
 
 % an environment for todos
 \newenvironment{inprogress}{\color{ACMBlue}\textbf{Sun:} \begin{tabular}{||p{.48\textwidth}}}{\end{tabular}}
-% \newenvironment{inprogress}
-%   {\vspace{.5em} \color{brewerorange} \noindent \textbf{TODO}}
-%   {\vspace{.5em}}
 
 \newcommand{\inprog}[1]{
-  \ifthenelse{\equal{\showcomments}{1}}{{\color{ACMBlue}\vspace{.5em}%
+  \ifthenelse{\equal{\showcomments}{1}}{{\color{ACMOrange}\vspace{.5em}%
   \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{In progress: } #1
 \end{tabular}}}{}}
-\newcommand{\outline}[1]{
+\newcommand{\replace}[1]{
   \ifthenelse{\equal{\showcomments}{1}}{{\color{VioletRed}\vspace{.5em}%\hspace*{.15em}
-  \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{Outline: } #1
+  \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{Replaced: } #1
+\end{tabular}}}{}}
+\newcommand{\update}[1]{
+  \ifthenelse{\equal{\showcomments}{1}}{{\color{ACMBlue}\vspace{.5em}%
+  \noindent\begin{tabular}{@{}||p{.46\textwidth}} \textbf{Update: } #1
 \end{tabular}}}{}}
 
 
@@ -115,13 +144,14 @@
 %\newcommand{\email}[1]{\emph{(#1)}}
 
 %-- Starts a minor section (puts the title inline w/ the text.
-\newcommand{\minorsection}[1]{\textbf{#1}:}
+\newcommand{\minorsection}[1]{\noindent\textbf{#1}:}
+\newcommand{\minorsectionit}[1]{\noindent\textit{#1}:}
 
 %-- Jiri caption
 \newcommand{\minicaption}[2]{\caption[#1]{\textbf{#1} \textnormal{#2}}}
 
 %-- Units on numbers: 4KB -> \units{4}{KB}
-\newcommand{\units}[2]{#1~#2}
+\newcommand{\units}[2]{#1\,#2}
 
 %-- Commands...  i.e. WRITE commands.
 \newcommand{\command}[1]{{\sc \MakeLowercase{#1}}}
@@ -157,11 +187,11 @@
 %-- For the tabularx environment... Using L, C, R as the column type
 %-- will left, center, or right justify the text.
 % \newcolumntype{L}{X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 %-- To comment out a swatch of text, use \omitit{blah blah blah} or \eat{ xxx }
 \long\def\omitit#1{}
@@ -175,7 +205,6 @@
 \newcommand{\inlinesection}[1]{\smallskip\noindent{\textbf{#1.}}}
 
 %-- todo notes
-
 \newenvironment{outlineenv}{\par\color{black}}{\par}
 \newenvironment{pagelenenv}{\par\color{red}}{\par}
 
@@ -188,49 +217,58 @@
 
 % define shortcuts for comment
 % \newcommand{\outline}[1]{\textsf{\textbf{\leavevmode\color{VioletRed}[Outline: #1]}}}
-\newcommand{\todoA}[1]{\textsf{\textbf{\color{BurntOrange}{[#1]}}}}
-\newcommand{\todoB}[1]{\textsf{\textbf{\color{Purple}{[#1]}}}}
-\newcommand{\todoC}[1]{\textsf{\textbf{\color{Green}{[#1]}}}}
-\newcommand{\todoD}[1]{\textsf{\textbf{\color{Red}{[#1]}}}}
-\newcommand{\todoE}[1]{\textsf{\textbf{\color{RedOrange}{[#1]}}}}
-\newcommand{\todoF}[1]{\textsf{\textbf{\color{YellowOrange}{[#1]}}}}
+\newcommand{\todoA}[1]{\textsf{\textbf{\color{BurntOrange}{[[#1]]}}}}
+\newcommand{\todoB}[1]{\textsf{\textbf{\color{RoyalPurple}{[[#1]]}}}}
+\newcommand{\todoC}[1]{\textsf{\textbf{\color{ForestGreen}{[[#1]]}}}}
+\newcommand{\todoD}[1]{\textsf{\textbf{\color{VioletRed}{[[#1]]}}}}
+\newcommand{\todoE}[1]{\textsf{\textbf{\color{RedOrange}{[[#1]]}}}}
+\newcommand{\todoF}[1]{\textsf{\textbf{\color{RoyalBlue}{[[#1]]}}}}
 \newcommand{\rough}[1]{\textit{\color{Orange}{#1}}}
 
-\newcommand{\dave}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoC{Dave: #1}}{}}
-\newcommand{\sun}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoE{Sun: #1}}{}}
+% \newcommand{\drc}[1]{\ifthenelse{\equal{\showcomments}{1}}{\textbf{\textcolor{ForestGreen}{[[[Dave: #1]]]}}}
 \newcommand{\todo}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoA{TODO: #1}}{}}
-\newcommand{\ts}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoF{Topic Sentence: #1}}{}}
+\newcommand{\ma}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoC{MA: #1}}{}}
+\newcommand{\edit}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoD{Edited: #1}}{}}
 
 % eg, ie, etc, et al ....
-% \newcommand{\eg}{\emph{e.g.}\xspace}
-% \def\etc{etc.\@\xspace}
-% \newcommand{\ie}{\emph{i.e.}\xspace}
-% \newcommand{\etal}{\emph{et al.}\xspace}
 \newcommand{\cf}{{cf.}\xspace}
 \newcommand\etc{etc\@ifnextchar.{}{.\@}}
-
-% \newcommand{\etc}{etc.}
-\newcommand{\eg}{e.g.,\ }
+\newcommand{\eg}{e.g.,\xspace}
 \newcommand{\etal}{et al.\xspace}
-\newcommand{\ie}{i.e.,\ }
-\newcommand{\re}{r.e.\ }
-\newcommand{\aka}{a.k.a.\ }
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\re}{r.e.\xspace}
+\newcommand{\aka}{a.k.a.\xspace}
 
+% packed items and enum..
 \newenvironment{packed_itemize}{
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
   \setlength{\itemsep}{2pt}
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
+  % \setlength{\partopsep}{0pt}
   \setlength{\topsep}{2pt}
 }{\end{itemize}}
 
 \newenvironment{packed_enumerate}{
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
   \setlength{\itemsep}{2pt}
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
   \setlength{\topsep}{2pt}
 }{\end{enumerate}}
+
+\def\compactify{\itemsep=0pt \topsep=0pt \partopsep=0pt \parsep=0pt}
+  \let\latexusecounter=\usecounter
+  \newenvironment{CompactItemize}
+    {\def\usecounter{\compactify\latexusecounter}
+     \begin{itemize}}
+    {\end{itemize}\let\usecounter=\latexusecounter}
+  \newenvironment{CompactEnumerate}
+    {\def\usecounter{\compactify\latexusecounter}
+     \begin{enumerate}}
+    {\end{enumerate}\let\usecounter=\latexusecounter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Little numbers in circles plus background colors
 % \newcommand{\colorcirc}[2]{\protect\raisebox{-0.5pt}{\tikzexternaldisable\protect\tikz{\protect\path[fill=#1] (0,0.004) circle [radius=0.105];\protect\node [inner sep=0,outer sep=0] at (0,0) {\small{#2}};}}}
@@ -258,7 +296,6 @@
 \newcommand{\dummyfig}[1]{
   \centering
   \fbox{
-    % \begin{minipage}[c][0.33\textheight][c]{.5\textwidth}
     \begin{minipage}[c][.45\textheight][c]{.95\textwidth}
       \centering{#1}
     \end{minipage}
