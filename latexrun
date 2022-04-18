@@ -517,7 +517,8 @@ def run_tasks(tasks, max_iterations):
         for task in tasks:
             if task.stable():
                 nstable += 1
-                if nstable == len(tasks):
+                if nstable == len(tasks)+1:
+                    task.run()
                     debug('fixed-point reached')
                     return True
             else:
@@ -1629,7 +1630,7 @@ class BibTeX(Task):
 
         if self.__is_biber():
             outbase = os.path.join(cwd, outbase)
-        outputs = [outbase + '.bbl', outbase + '.blg']
+        outputs = [outbase+ext for ext in ['.bbl','.blg','.bcf']]
         return RunResult(outputs, {'outbase': outbase, 'status': status,
                                    'inputs': inputs})
 

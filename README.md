@@ -29,6 +29,24 @@ fonts and margins at all.
 The USENIX version comes from.
 
 
+## Important notes about `latexrun`
+
+The official `latexrun` is not accepting PR for years, the `latexrun` script in
+the repo includes two major patches
+
+
+### [Issue: `latexrun` doesn't work with biber or biblatex properly](https://github.com/aclements/latexrun/issues/36)
+
+[Patch](https://github.com/aclements/latexrun/pull/55)
+
+
+### [Issue: produced pdf file and the pdf file in `latex.out` are out of sync](https://github.com/aclements/latexrun/issues/35)
+
+[Patch](https://github.com/eisoku9618/kuroiwa_demos/pull/105/files)
+
+
+
+
 ## FAQ
 
 * Why use [latexrun](https://github.com/aclements/latexrun)?
