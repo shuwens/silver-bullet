@@ -26,7 +26,8 @@ The ACM tempalte comes from samples/samplex-sigconf in [LaTeX (Version
 update August 6, 2019). Note that the ACM doesn't allow changes to the
 fonts and margins at all.
 
-The USENIX version comes from.
+The USENIX version comes from the [official USENIX latex
+template](https://www.usenix.org/conferences/author-resources/paper-templates).
 
 
 ## Important notes about `latexrun`
