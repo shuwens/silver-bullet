@@ -1,0 +1,101 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+% \usepackage{cite} % no need to load since we have biblatex
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-- Necessary packages to enable std_commands.
+\usepackage{
+  array,
+  balance,
+  makecell,
+  xspace,
+  subcaption,
+  pifont,
+  float,
+  ifthen,
+  listings,
+  xspace
+}
+\usepackage[backend=biber]{biblatex}
+
+% enumerate* and itemize*
+\usepackage[inline]{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+% for \begin{comment}
+\usepackage{verbatim}
+
+% for source-code listings
+% \usepackage[newfloat,draft=false]{minted}
+
+% for formulas
+\usepackage{mathtools}
+
+% to split lists into multiple columns
+\usepackage{multicol}
+\usepackage{multirow}
+
+% for \sfrac
+\usepackage{xfrac}
+% \usepackage{appendix}
+
+%\usepackage[compact]{titlesec}
+
+% \setlength{\extrarowheight}{4pt}
+\newcommand{\normal}[1]{\multicolumn{1}{l}{#1}}
+
+\newcommand{\head}[1]{\textbf{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{pifont}
+\usepackage{tikz}
+\usepackage{tabularx,booktabs}
+\usepackage[export]{adjustbox}
+% \usepackage{caption}
+\usepackage{mathtools, nccmath}
+% \usepackage[pdftex]{graphicx}
+
+% control title space
+% \usepackage{titlesec}
+% \titlespacing*{\section}{0pt}{1.1\baselineskip}{\baselineskip}
+
+% use cleveref and use those symbols
+\makeatletter
+\newcommand{\crefnames}[3]{%
+  \@for\next:=#1\do{%
+    \expandafter\crefname\expandafter{\next}{#2}{#3}%
+  }%
+}
+\makeatother
+
+% to have all those symbols in cleveref
+\renewcommand{\sectionautorefname}{\S}
+\crefnames{part,chapter,section}{\S}{\S}
+\crefnames{paragraph}{\P}{\P}
+
+% Hyperlinks setup
+\AtBeginDocument{%
+\hypersetup{colorlinks=true,urlcolor=violet,linkcolor=figurecolor,citecolor=citecolor,pdfstartview=FitH,backref=section,
+}
+}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\na}{N.A.}
+\newcommand*\rot{\rotatebox{90}}
+
