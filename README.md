@@ -14,12 +14,17 @@ For ACM template, they are:
 * `lib/acm/acmart.cls`
 * `lib/acm/ACM-Reference-Format.bst`
 
+For IEEE template, they are:
+* `lib/ieee/prelude.tex`
+* `lib/ieee/IEEEtran.cls`
+* `lib/ieee/keywords.tex`
+
 After those then is all the regular tex file in this directory. The rest
 of things in `lib` are just for legacy reasons and/or to compare with
 future changes in ACM and USENIX templates.
 
 
-## Versions of the ACM and USENIX templates
+## Versions of the ACM, USENIX, and IEEE templates
 
 The ACM tempalte comes from samples/samplex-sigconf in [LaTeX (Version
 1.63a)](https://www.acm.org/publications/proceedings-template) (last
@@ -29,6 +34,7 @@ fonts and margins at all.
 The USENIX version comes from the [official USENIX latex
 template](https://www.usenix.org/conferences/author-resources/paper-templates).
 
+The [IEEE template](https://www.ieee.org/content/dam/ieee-org/ieee/web/org/pubs/conference-latex-template_10-17-19.zip) is from [DSN 2024 CFP](https://dsn2024uq.github.io/cfpapers.html).
 
 ## Important notes about `latexrun`
 
@@ -44,8 +50,6 @@ the repo includes two major patches
 ### [Issue: produced pdf file and the pdf file in `latex.out` are out of sync](https://github.com/aclements/latexrun/issues/35)
 
 [Patch](https://github.com/eisoku9618/kuroiwa_demos/pull/105/files)
-
-
 
 
 ## FAQ
@@ -66,5 +70,4 @@ biber and biblatex etc.
 
 ## Similar project
 
-[paper_skel](https://github.com/efficient/paper_skel) from Dave
-Anderson.
+[paper_skel](https://github.com/efficient/paper_skel) from Dave Anderson.
