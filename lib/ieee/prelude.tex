@@ -1,7 +1,7 @@
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-\usepackage{cite}
+% \usepackage{cite} % no need to load since we have biblatex
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -45,7 +45,7 @@
 
 % for \sfrac
 \usepackage{xfrac}
-\usepackage{appendix}
+% \usepackage{appendix}
 
 %\usepackage[compact]{titlesec}
 
@@ -57,11 +57,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-\usepackage{amsmath}
-\usepackage[nameinlink,capitalise]{cleveref}
 \usepackage{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage{blindtext}
@@ -69,8 +66,7 @@
 \usepackage{tikz}
 \usepackage{tabularx,booktabs}
 \usepackage[export]{adjustbox}
-\usepackage{caption}
-\usepackage{graphics}
+% \usepackage{caption}
 \usepackage{mathtools, nccmath}
 % \usepackage[pdftex]{graphicx}
 
@@ -102,21 +98,4 @@
 \newcommand{\xmark}{\ding{55}}%
 \newcommand{\na}{N.A.}
 \newcommand*\rot{\rotatebox{90}}
-
-% ACM stuff
-\input{lib/acm/ccs.xml}
-
-% Copyright
-\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
-\setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
-%\setcopyright{rightsretained}
-%\setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-%\setcopyright{cagovmixed}
-
-% \settopmatter{printacmref=false, printccs=true, printfolios=true}
-
 
