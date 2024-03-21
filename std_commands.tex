@@ -36,6 +36,9 @@
 
 % % to split lists into multiple columns
 % \usepackage{multicol}
+% https://tex.stackexchange.com/questions/166263/drawing-multicolumn-table-in-latex
+% TODO: siunitx
+
 %
 % % for \sfrac
 % \usepackage{xfrac}
@@ -235,9 +238,9 @@
 % eg, ie, etc, et al ....
 \newcommand{\cf}{{cf.}\xspace}
 \newcommand\etc{etc\@ifnextchar.{}{.\@}}
-\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\eg}{\emph{e.g.},\xspace}
 \newcommand{\etal}{et al.\xspace}
-\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\ie}{\emph{i.e.}\xspace}
 \newcommand{\re}{r.e.\xspace}
 \newcommand{\aka}{a.k.a.\xspace}
 

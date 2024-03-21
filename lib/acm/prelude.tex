@@ -1,15 +1,18 @@
 % Enable more options for xcolors
 % https://tex.stackexchange.com/questions/496128/coloured-tables-in-acm-master-article-template
-\PassOptionsToPackage{table,xcdraw,dvipsnames,usenames,svgnames}{xcolor}
+% \PassOptionsToPackage{table,xcdraw,dvipsnames,usenames,svgnames}{xcolor}
 
 % \documentclass[10pt,sigconf,letterpaper,anonymous,nonacm,table,natbib=false,screen=true]{acmart}
-\documentclass[10pt,sigconf,letterpaper,anonymous,table,natbib=false,screen=true]{acmart}
+% \documentclass[10pt,sigconf,letterpaper,anonymous,table,natbib=false,screen=true]{acmart}
+\documentclass[sigconf,natbib=false]{acmart}
+\bibliographystyle{ACM-Reference-Format}
+\usepackage[style=ACM-Reference-Format,backend=bibtex,sorting=none]{biblatex}
 
 % Hack to try to make acmart work with biblatex:
 % https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
-\let\citename\relax
+% \let\citename\relax
 % \RequirePackage[style=ACM-Reference-Format,backend=biber,natbib=true,sorting=ynt,sortcites=true,]{biblatex}
-\RequirePackage[abbreviate=false, dateabbrev=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=9, backref=false, backend=biber, sorting=ynt,sortcites=true,style=ACM-Reference-Format, language=american]{biblatex}
+% \RequirePackage[abbreviate=false, dateabbrev=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=9, backref=false, backend=biber, sorting=ynt,sortcites=true,style=ACM-Reference-Format, language=american]{biblatex}
 % http://codydunne.blogspot.com/2012/01/suppressing-bibtex-fields-for-specific.html
 \AtEveryBibitem{% Clean up the bibtex rather than editing it
  \clearlist{address}
