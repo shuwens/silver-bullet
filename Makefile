@@ -14,15 +14,24 @@ all: ${latexfile}.pdf
 
 .PHONY: FORCE
 ${latexfile}.pdf: FORCE ${latexfile}.tex
-		$(LATEXRUN) ${FLAGS} ${latexfile}.tex -o $@
+	$(LATEXRUN) ${FLAGS} ${latexfile}.tex -o $@
+
+
+.PHONY: spell
+spell:
+	ispell *.tex
+
+.PHONY: check
+check:
+	@checkwriting *.tex
 
 
 .PHONY: clean
 clean:
-		$(LATEXRUN) --clean-all
+	$(LATEXRUN) --clean-all
 
 
 .PHONY: cleaner
 cleaner:
-		$(LATEXRUN) --clean-all
-		rm -rf latex.out
+	$(LATEXRUN) --clean-all
+	rm -rf latex.out
