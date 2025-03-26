@@ -236,13 +236,25 @@
 \newcommand{\edit}[1]{\ifthenelse{\equal{\showcomments}{1}}{\todoD{Edited: #1}}{}}
 
 % eg, ie, etc, et al ....
-\newcommand{\cf}{{cf.}\xspace}
-\newcommand\etc{etc\@ifnextchar.{}{.\@}}
-\newcommand{\eg}{\emph{e.g.},\xspace}
+% \newcommand{\cf}{{cf.}\xspace}
+% \newcommand\etc{etc\@ifnextchar.{}{.\@}}
+% \newcommand{\eg}{\emph{e.g.},\xspace}
 \newcommand{\etal}{et al.\xspace}
-\newcommand{\ie}{\emph{i.e.}\xspace}
+% \newcommand{\ie}{\emph{i.e.}\xspace}
 \newcommand{\re}{r.e.\xspace}
 \newcommand{\aka}{a.k.a.\xspace}
+
+\newcommand{\ie}{\emph{i.\,e}\@ifnextchar.{}{.\@\xspace}}
+% exempli gratia
+\newcommand{\eg}{\emph{e.\,g}\@ifnextchar.{}{.\@\xspace}}
+% et cetera
+\newcommand{\etc}{\emph{etc}\@ifnextchar.{}{.\@\xspace}}
+% confer
+\newcommand{\cf}{\emph{cf}\@ifnextchar.{}{.\@\xspace}}
+% versus
+\newcommand{\vs}{\emph{vs}\@ifnextchar.{}{.\@\xspace}}
+
+
 
 % packed items and enum..
 \newenvironment{packed_itemize}{
